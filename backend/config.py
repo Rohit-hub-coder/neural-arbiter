@@ -14,7 +14,13 @@ is obvious rather than surfacing mid-stream inside a WebSocket handler.
 """
 
 import os
+import sys
 from dotenv import load_dotenv
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 load_dotenv()  # reads .env from the current working directory (project root)
 
@@ -26,32 +32,20 @@ TEST_MODE: bool = _raw != "false"
 # ── LOUD STARTUP BANNER — impossible to miss ──────────────────────────────────
 if TEST_MODE:
     print("\n" + "=" * 70)
-    print("  ███╗   ███╗ ██████╗  ██████╗██╗  ██╗    ███╗   ███╗ ██████╗ ██████╗ ███████╗")
-    print("  ████╗ ████║██╔═══██╗██╔════╝██║ ██╔╝    ████╗ ████║██╔═══██╗██╔══██╗██╔════╝")
-    print("  ██╔████╔██║██║   ██║██║     █████╔╝     ██╔████╔██║██║   ██║██║  ██║█████╗  ")
-    print("  ██║╚██╔╝██║██║   ██║██║     ██╔═██╗     ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ")
-    print("  ██║ ╚═╝ ██║╚██████╔╝╚██████╗██║  ██╗    ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗")
-    print("  ╚═╝     ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝")
-    print("=" * 70)
-    print("  ✅  TEST_MODE = True")
-    print("  ✅  ALL LLM calls → MOCK data (no API usage)")
-    print("  ✅  ALL web searches → MOCK snippets")
-    print("  ✅  Judge verdicts → MOCK scores")
-    print(f"  📄  .env value read: TEST_MODE = '{_raw}'")
+    print("  [MOCK MODE ACTIVE]")
+    print("  * TEST_MODE = True")
+    print("  * ALL LLM calls -> MOCK data (no API usage)")
+    print("  * ALL web searches -> MOCK snippets")
+    print("  * Judge verdicts -> MOCK scores")
+    print(f"  * .env value read: TEST_MODE = '{_raw}'")
     print("=" * 70 + "\n")
 else:
     print("\n" + "!" * 70)
-    print("  ⚠️  ██╗     ██╗██╗   ██╗███████╗    ███╗   ███╗ ██████╗ ██████╗ ███████╗")
-    print("  ⚠️  ██║     ██║██║   ██║██╔════╝    ████╗ ████║██╔═══██╗██╔══██╗██╔════╝")
-    print("  ⚠️  ██║     ██║██║   ██║█████╗      ██╔████╔██║██║   ██║██║  ██║█████╗  ")
-    print("  ⚠️  ██║     ██║╚██╗ ██╔╝██╔══╝      ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ")
-    print("  ⚠️  ███████╗██║ ╚████╔╝ ███████╗    ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗")
-    print("  ⚠️  ╚══════╝╚═╝  ╚═══╝  ╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝")
-    print("!" * 70)
-    print("  🔴  TEST_MODE = False — REAL API CALLS ARE ACTIVE")
-    print("  🔴  LLM calls WILL consume API quota")
-    print("  🔴  Web searches WILL hit DuckDuckGo")
-    print(f"  📄  .env value read: TEST_MODE = '{_raw}'")
+    print("  [LIVE MODE ACTIVE]")
+    print("  * TEST_MODE = False -- REAL API CALLS ARE ACTIVE")
+    print("  * LLM calls WILL consume API quota")
+    print("  * Web searches WILL hit DuckDuckGo")
+    print(f"  * .env value read: TEST_MODE = '{_raw}'")
     print("!" * 70 + "\n")
 
 

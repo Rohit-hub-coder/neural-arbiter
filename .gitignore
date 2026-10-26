@@ -1,20 +1,34 @@
 # Environment Variables
 .env
-backend/.env
-frontend/.env
+.env.*
+*.env
+!.env.example
+!*/.env.example
 
-# Python junk
+# Python
 __pycache__/
-backend/__pycache__/
-backend/nodes/__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.py[cod]
+*$py.class
 venv/
 backend/venv/
 
-# System junk
-.DS_Store
-backend/.DS_Store
-frontend/.DS_Store
+# Frontend & Dependencies
+node_modules/
+*/node_modules/
+dist/
+*/dist/
 
-# Frontend junk
-frontend/node_modules/
-frontend/dist/
+# OS / Editor
+.DS_Store
+*/.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local personal runners & interview docs
+run.bat
+*.bat
+INTERVIEW_GUIDE*.md
+*/INTERVIEW_GUIDE*.md
